@@ -12,16 +12,39 @@ import (
 	"test.com/hub/hubroutes"
 )
 
-type fiction struct {
-	Title string
-	Genre string
+type serial struct {
+	Title    string `json:"Title"`
+	Year     string `json:"Year"`
+	Rated    string `json:"Rated"`
+	Released string `json:"Released"`
+	Runtime  string `json:"Runtime"`
+	Genre    string `json:"Genre"`
+	Director string `json:"Director"`
+	Writer   string `json:"Writer"`
+	Actors   string `json:"Actors"`
+	Plot     string `json:"Plot"`
+	Language string `json:"Language"`
+	Country  string `json:"Country"`
+	Awards   string `json:"Awards"`
+	Poster   string `json:"Poster"`
+	Ratings  []struct {
+		Source string `json:"Source"`
+		Value  string `json:"Value"`
+	} `json:"Ratings"`
+	Metascore    string `json:"Metascore"`
+	ImdbRating   string `json:"imdbRating"`
+	ImdbVotes    string `json:"imdbVotes"`
+	ImdbID       string `json:"imdbID"`
+	Type         string `json:"Type"`
+	TotalSeasons string `json:"totalSeasons"`
+	Response     string `json:"Response"`
 }
 
 func main() {
 	//Add API key to URL from .env
 	godotenv.Load(".env")
 	api_url := fmt.Sprintf("https://www.omdbapi.com/?apikey=%v&t=frieren", os.Getenv("API_KEY"))
-
+	Url := fmt.Sprintf("https://www.omdbapi.com/?apikey=%v", os.Getenv("API_KEY"))
 	//fetch response with http.Get
 	res, err := http.Get(api_url)
 	//check for errors
@@ -31,7 +54,7 @@ func main() {
 	}
 
 	//create result variable which is of type *fiction struct
-	var Result *fiction
+	var Result *serial
 	// close response at any time the function is returned
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
@@ -43,12 +66,26 @@ func main() {
 	json.Unmarshal(body, &Result)
 	fmt.Printf("%v \n", *Result)
 	//Just print the whole actual result
-	fmt.Println(string(body))
+	//fmt.Println(string(body))
 	fmt.Println("Welcome!", hubroutes.Message)
 	//Start the server other method's to come
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Welcome")
+	})
+	r.GET("/series/:name", func(c *gin.Context) {
+		var data *serial
+		name := c.Param("name")
+		combineUrl := fmt.Sprintf("%v&t=%v", Url, name)
+		res, err = http.Get(combineUrl)
+		if err != nil {
+			c.String(410, "Something went wrong")
+		}
+		defer res.Body.Close()
+		body, _ := io.ReadAll(res.Body)
+		json.Unmarshal(body, &data)
+		fmt.Printf("%v \n", data)
+		c.AsciiJSON(200, data)
 	})
 	r.Run()
 }
