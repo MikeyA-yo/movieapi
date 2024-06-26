@@ -64,7 +64,7 @@ func main() {
 
 	//Decode JSON from body into Result Variable
 	json.Unmarshal(body, &Result)
-	fmt.Printf("%v \n", *Result)
+
 	//Just print the whole actual result
 	//fmt.Println(string(body))
 	fmt.Println("Welcome!", hubroutes.Message)
@@ -76,7 +76,7 @@ func main() {
 	r.GET("/series/:name", func(c *gin.Context) {
 		var data *serial
 		name := c.Param("name")
-		combineUrl := fmt.Sprintf("%v&t=%v", Url, name)
+		combineUrl := fmt.Sprintf("%v&t=%v&type=series", Url, name)
 		res, err = http.Get(combineUrl)
 		if err != nil {
 			c.String(410, "Something went wrong")
@@ -84,7 +84,6 @@ func main() {
 		defer res.Body.Close()
 		body, _ := io.ReadAll(res.Body)
 		json.Unmarshal(body, &data)
-		fmt.Printf("%v \n", data)
 		c.AsciiJSON(200, data)
 	})
 	r.Run()
