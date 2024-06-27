@@ -80,5 +80,12 @@ func main() {
 		json.Unmarshal(body, &data)
 		c.AsciiJSON(200, data)
 	})
+	r.GET("/movies/:name", func(c *gin.Context) {
+		var data *serial
+		name := c.Param("name")
+		body := hubroutes.GetMovies(Url, name)
+		json.Unmarshal(body, &data)
+		c.AsciiJSON(200, data)
+	})
 	r.Run()
 }

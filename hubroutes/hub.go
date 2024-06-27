@@ -17,4 +17,15 @@ func GetSeries(url string, name string) []byte {
 	return body
 }
 
+func GetMovies(url string, name string) []byte {
+	combineUrl := fmt.Sprintf("%v&t=%v&type=movie", url, name)
+	res, err := http.Get(combineUrl)
+	if err != nil {
+		fmt.Print("Error\n")
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	return body
+}
+
 var Message = "Hello"
