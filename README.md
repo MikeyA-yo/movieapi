@@ -1,4 +1,4 @@
-# Shege
+# MovieHub API
 
 ## use the command:
 ```

@@ -43,7 +43,9 @@ type serial struct {
 func main() {
 	//Add API key to URL from .env
 	godotenv.Load(".env")
+	// example
 	api_url := fmt.Sprintf("https://www.omdbapi.com/?apikey=%v&t=frieren", os.Getenv("API_KEY"))
+	//real URL
 	Url := fmt.Sprintf("https://www.omdbapi.com/?apikey=%v", os.Getenv("API_KEY"))
 	//fetch response with http.Get
 	res, err := http.Get(api_url)
@@ -67,7 +69,7 @@ func main() {
 
 	//Just print the whole actual result
 	//fmt.Println(string(body))
-	fmt.Println("Welcome!", hubroutes.Message)
+
 	//Start the server other method's to come
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
