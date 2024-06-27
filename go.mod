@@ -1,4 +1,4 @@
-module test.com/hub
+module github.com/MikeyA-yo/movieapi
 
 go 1.21.6
 

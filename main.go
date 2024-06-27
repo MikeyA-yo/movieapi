@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/MikeyA-yo/movieapi/hubroutes"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"test.com/hub/hubroutes"
 )
 
 type serial struct {
@@ -76,13 +76,7 @@ func main() {
 	r.GET("/series/:name", func(c *gin.Context) {
 		var data *serial
 		name := c.Param("name")
-		combineUrl := fmt.Sprintf("%v&t=%v&type=series", Url, name)
-		res, err = http.Get(combineUrl)
-		if err != nil {
-			c.String(410, "Something went wrong")
-		}
-		defer res.Body.Close()
-		body, _ := io.ReadAll(res.Body)
+		body := hubroutes.GetSeries(Url, name)
 		json.Unmarshal(body, &data)
 		c.AsciiJSON(200, data)
 	})
