@@ -12,6 +12,18 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type serials struct {
+	Search []struct {
+		Title  string `json:"Title"`
+		Year   string `json:"Year"`
+		ImdbID string `json:"imdbID"`
+		Type   string `json:"Type"`
+		Poster string `json:"Poster"`
+	} `json:"Search"`
+	TotalResults string `json:"totalResults"`
+	Response     string `json:"Response"`
+}
+
 type serial struct {
 	Title    string `json:"Title"`
 	Year     string `json:"Year"`
@@ -86,6 +98,13 @@ func main() {
 		var data *serial
 		name := c.Param("name")
 		body := hubroutes.GetMovies(Url, name)
+		json.Unmarshal(body, &data)
+		c.AsciiJSON(200, data)
+	})
+	r.GET("/search/:term", func(c *gin.Context) {
+		var data *serials
+		term := c.Param("term")
+		body := hubroutes.GetSearch(Url, term)
 		json.Unmarshal(body, &data)
 		c.AsciiJSON(200, data)
 	})

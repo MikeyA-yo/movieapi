@@ -30,4 +30,14 @@ func GetMovies(url string, name string) []byte {
 	return body
 }
 
-var Message = "Hello"
+// function to Search for movies and series generally
+func GetSearch(url string, name string) []byte {
+	combineUrl := fmt.Sprintf("%v&s=%v", url, name)
+	res, err := http.Get(combineUrl)
+	if err != nil {
+		fmt.Print("Error\n")
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	return body
+}
