@@ -112,3 +112,15 @@ func GetTitle() []searchResult {
 	}
 	return titlesRes
 }
+
+// function to find and keep genres
+func GetDetailedRecommendation() {
+	lists := GetTitle()
+	length := len(lists)
+	for i := 0; i < length; i++ {
+		if lists[i].Type == "movie" {
+			return
+			//http.Get("http://localhost:8080/")
+		}
+	}
+}
