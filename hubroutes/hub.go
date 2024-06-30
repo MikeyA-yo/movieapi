@@ -7,7 +7,9 @@ import (
 	"math"
 	"math/rand"
 	"net/http"
+	"slices"
 	"strconv"
+	"strings"
 )
 
 var Num = rand.Intn(100)
@@ -88,7 +90,7 @@ func GetSearchRand(url, name string) []byte {
 //		aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
 //		return aZ[Num]
 //	}
-//
+
 // function to simplify process
 func Words() []string {
 	result := []string{}
@@ -145,14 +147,49 @@ func GetTitle() []searchResult {
 	return titlesRes
 }
 
+type genreLike struct {
+	Title string `json:"Title"`
+	Genre string `json:"Genre"`
+}
+
 // function to find and keep genres
-func GetDetailedRecommendation() {
+func GetDetailedRecommendation(genre string) []byte {
+	URL := "http://localhost:8080/"
 	lists := GetTitle()
 	length := len(lists)
+	var data []byte
 	for i := 0; i < length; i++ {
+		name := fmt.Sprintf("%v", lists[i].Title)
+		var genreData genreLike
 		if lists[i].Type == "movie" {
-			return
-			//http.Get("http://localhost:8080/")
+			urlContent := fmt.Sprintf("%v/movie/%v", URL, name)
+			res, e := http.Get(urlContent)
+			if e != nil {
+				fmt.Println(e)
+			}
+			defer res.Body.Close()
+			body, _ := io.ReadAll(res.Body)
+			data = body
+			json.Unmarshal(body, &genreData)
+			genreSlice := strings.Split(genreData.Genre, ", ")
+			if slices.Contains(genreSlice, genre) {
+				return body
+			}
+		} else {
+			urlContent := fmt.Sprintf("%v/series/%v", URL, name)
+			res, e := http.Get(urlContent)
+			if e != nil {
+				fmt.Println(e)
+			}
+			defer res.Body.Close()
+			body, _ := io.ReadAll(res.Body)
+			data = body
+			json.Unmarshal(body, &genreData)
+			genreSlice := strings.Split(genreData.Genre, ", ")
+			if slices.Contains(genreSlice, genre) {
+				return body
+			}
 		}
 	}
+	return data
 }
