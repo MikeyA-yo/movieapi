@@ -11,7 +11,7 @@ import (
 var Num = rand.Intn(100)
 
 // Function to identify a series based on it's name, returns an array of bytes, takes a url and name as parameters
-func GetSeries(url string, name string) []byte {
+func GetSeries(url, name string) []byte {
 	combineUrl := fmt.Sprintf("%v&t=%v&type=series", url, name)
 	res, err := http.Get(combineUrl)
 	if err != nil {
@@ -23,7 +23,7 @@ func GetSeries(url string, name string) []byte {
 }
 
 // Function to identify a movie based on it's name, returns an array of bytes, takes a url and name as parameters
-func GetMovies(url string, name string) []byte {
+func GetMovies(url, name string) []byte {
 	combineUrl := fmt.Sprintf("%v&t=%v&type=movie", url, name)
 	res, err := http.Get(combineUrl)
 	if err != nil {
@@ -35,7 +35,20 @@ func GetMovies(url string, name string) []byte {
 }
 
 // function to Search for movies and series generally
-func GetSearch(url string, name string) []byte {
+func GetSearch(url, name string) []byte {
+	combineUrl := fmt.Sprintf("%v&s=%v", url, name)
+	res, err := http.Get(combineUrl)
+	if err != nil {
+		fmt.Print("Error\n")
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	return body
+}
+
+// Function to get a search page pseudo randomly
+func GetSearchRand(url, name string) []byte {
+
 	combineUrl := fmt.Sprintf("%v&s=%v&page=%v", url, name, Num)
 	res, err := http.Get(combineUrl)
 	if err != nil {

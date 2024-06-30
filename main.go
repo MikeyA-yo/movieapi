@@ -104,7 +104,11 @@ func main() {
 	r.GET("/search/:term", func(c *gin.Context) {
 		var data *serials
 		term := c.Param("term")
+		rand := c.Query("rand")
 		body := hubroutes.GetSearch(Url, term)
+		if rand == "true" {
+			body = hubroutes.GetSearchRand(Url, term)
+		}
 		json.Unmarshal(body, &data)
 		c.AsciiJSON(200, data)
 	})
