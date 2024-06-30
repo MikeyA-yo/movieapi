@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"math/rand"
 	"net/http"
+	"strconv"
 )
 
 var Num = rand.Intn(100)
@@ -46,40 +48,6 @@ func GetSearch(url, name string) []byte {
 	return body
 }
 
-// Function to get a search page pseudo randomly
-func GetSearchRand(url, name string) []byte {
-
-	combineUrl := fmt.Sprintf("%v&s=%v&page=%v", url, name, Num)
-	res, err := http.Get(combineUrl)
-	if err != nil {
-		fmt.Print("Error\n")
-	}
-	defer res.Body.Close()
-	body, _ := io.ReadAll(res.Body)
-	return body
-}
-
-// Fuction to get random character
-// func RandomCharacter() string {
-// 	aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
-// 	return aZ[Num]
-// }
-
-// function For a random word 178186
-func GetWord() string {
-	var WordNum = rand.Intn(178186)
-	result := []string{}
-	res, err := http.Get("https://random-word-api.herokuapp.com/all")
-	if err != nil {
-		fmt.Print("Error\n")
-		return ""
-	}
-	defer res.Body.Close()
-	body, _ := io.ReadAll(res.Body)
-	json.Unmarshal(body, &result)
-	return result[WordNum]
-}
-
 type serials struct {
 	Search []struct {
 		Title  string `json:"Title"`
@@ -90,6 +58,57 @@ type serials struct {
 	} `json:"Search"`
 	TotalResults string `json:"totalResults"`
 	Response     string `json:"Response"`
+}
+
+// Function to get a search page pseudo randomly
+func GetSearchRand(url, name string) []byte {
+	var dataJson serials
+	randData := GetSearch(url, name)
+	json.Unmarshal(randData, &dataJson)
+	count, err := strconv.Atoi(dataJson.TotalResults)
+	if err != nil {
+		fmt.Println("Error")
+		return randData
+	}
+	maxPageNumber := math.Round(float64(count / 10))
+	num := rand.Intn(int(maxPageNumber))
+	combineUrl := fmt.Sprintf("%v&s=%v&page=%v", url, name, num)
+	res, err := http.Get(combineUrl)
+	if err != nil {
+		fmt.Print("Error\n")
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	return body
+}
+
+// Fuction to get random character
+//
+//	func RandomCharacter() string {
+//		aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+//		return aZ[Num]
+//	}
+//
+// function to simplify process
+func Words() []string {
+	result := []string{}
+	res, err := http.Get("https://random-word-api.herokuapp.com/all")
+	if err != nil {
+		fmt.Print("Error\n")
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	json.Unmarshal(body, &result)
+	return result
+}
+
+var WordsArray = Words()
+
+// function For a random word 178186
+func GetWord() string {
+	var WordNum = rand.Intn(178186)
+	result := WordsArray
+	return result[WordNum]
 }
 
 type searchResult struct {

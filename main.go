@@ -88,6 +88,7 @@ func main() {
 		c.String(200, "Welcome")
 	})
 	r.GET("/series/:name", func(c *gin.Context) {
+		fmt.Println(hubroutes.GetTitle())
 		var data *serial
 		name := c.Param("name")
 		body := hubroutes.GetSeries(Url, name)

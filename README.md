@@ -6,4 +6,4 @@ go run .
 // or 
 go build .
 ```
-to get started
+To get started
