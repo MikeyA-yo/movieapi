@@ -14,6 +14,16 @@ import (
 
 var Num = rand.Intn(100)
 
+/*
+ Implementation Details:
+  takes to arguments:
+  1.) the global omdb API Url with your api key
+  2.) Name of search query
+  ensures to return only type series (omdbapi.com)
+  combines them into a url and fetch with http
+  then return the response body
+*/
+
 // Function to identify a series based on it's name, returns an array of bytes, takes a url and name as parameters
 func GetSeries(url, name string) []byte {
 	combineUrl := fmt.Sprintf("%v&t=%v&type=series", url, name)
@@ -25,6 +35,16 @@ func GetSeries(url, name string) []byte {
 	body, _ := io.ReadAll(res.Body)
 	return body
 }
+
+/*
+ Implementation Details:
+  takes to arguments:
+  1.) the global omdb API Url with your api key
+  2.) Name of search query
+  ensures to return only type movie (omdbapi.com)
+  combines them into a url and fetch with http
+  then return the response body
+*/
 
 // Function to identify a movie based on it's name, returns an array of bytes, takes a url and name as parameters
 func GetMovies(url, name string) []byte {
@@ -38,6 +58,15 @@ func GetMovies(url, name string) []byte {
 	return body
 }
 
+/*
+ Implementation Details:
+  takes to arguments:
+  1.) the global omdb API Url with your api key
+  2.) Name of search query
+  combines them into a url and fetch with http
+  then return the response body
+*/
+
 // function to Search for movies and series generally
 func GetSearch(url, name string) []byte {
 	combineUrl := fmt.Sprintf("%v&s=%v", url, name)
@@ -49,6 +78,12 @@ func GetSearch(url, name string) []byte {
 	body, _ := io.ReadAll(res.Body)
 	return body
 }
+
+/*
+ Implementation Details:
+ Create a struct type based of the json response for search
+ check out omdbapi.com for search results
+*/
 
 type serials struct {
 	Search []struct {
@@ -62,6 +97,14 @@ type serials struct {
 	Response     string `json:"Response"`
 }
 
+/*
+ Implementation Details:
+ use the GetSearch funtion to get the response body
+ then store the count of possible page numbers from TotalResults property (read omdbapi.com docs)
+ generate a random page number based  on the max possible page
+ use that random number to fetch a random page and return the response body
+*/
+
 // Function to get a search page pseudo randomly
 func GetSearchRand(url, name string) []byte {
 	var dataJson serials
@@ -73,7 +116,7 @@ func GetSearchRand(url, name string) []byte {
 		return randData
 	}
 	maxPageNumber := math.Round(float64(count / 10))
-	num := rand.Intn(int(maxPageNumber))
+	num := rand.Intn(int(maxPageNumber)) + 1
 	combineUrl := fmt.Sprintf("%v&s=%v&page=%v", url, name, num)
 	res, err := http.Get(combineUrl)
 	if err != nil {
@@ -84,12 +127,10 @@ func GetSearchRand(url, name string) []byte {
 	return body
 }
 
-// Fuction to get random character
-//
-//	func RandomCharacter() string {
-//		aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
-//		return aZ[Num]
-//	}
+/*
+ Implementation Details:
+ Get large list's of word's basically from an api and return it as a slice of strings
+*/
 
 // function to simplify process
 func Words() []string {
@@ -104,7 +145,13 @@ func Words() []string {
 	return result
 }
 
+// store all the words in this variable
 var WordsArray = Words()
+
+/*
+ Implementation Details:
+  use a random number to get an indiviual word from the slice
+*/
 
 // function For a random word 178186
 func GetWord() string {
@@ -113,6 +160,12 @@ func GetWord() string {
 	return result[WordNum]
 }
 
+/*
+ Implementation Details:
+   Below i'd be working on genre not much to be said on implementation details yet
+*/
+
+// Type for working with genre
 type searchResult struct {
 	Title string `json:"Title"`
 	Type  string `json:"Type"`
@@ -122,7 +175,7 @@ type searchResult struct {
 func GetTitle() []searchResult {
 	var title serials
 	randomWord := GetWord()
-	URL := fmt.Sprintf("https://movieapihub.zeabur.app/%v", randomWord)
+	URL := fmt.Sprintf("https://movieapihub.zeabur.app/search/%v", randomWord)
 	res, err := http.Get(URL)
 	if err != nil {
 		fmt.Print("Error\n")
@@ -193,3 +246,10 @@ func GetDetailedRecommendation(genre string) []byte {
 	}
 	return data
 }
+
+// Fuction to get random character
+//
+//	func RandomCharacter() string {
+//		aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+//		return aZ[Num]
+//	}
