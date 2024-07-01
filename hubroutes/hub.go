@@ -122,7 +122,7 @@ type searchResult struct {
 func GetTitle() []searchResult {
 	var title serials
 	randomWord := GetWord()
-	URL := fmt.Sprintf("http://localhost:8080/search/%v", randomWord)
+	URL := fmt.Sprintf("https://movieapihub.zeabur.app/%v", randomWord)
 	res, err := http.Get(URL)
 	if err != nil {
 		fmt.Print("Error\n")
@@ -154,7 +154,7 @@ type genreLike struct {
 
 // function to find and keep genres
 func GetDetailedRecommendation(genre string) []byte {
-	URL := "http://localhost:8080/"
+	URL := "https://movieapihub.zeabur.app/"
 	lists := GetTitle()
 	length := len(lists)
 	var data []byte
