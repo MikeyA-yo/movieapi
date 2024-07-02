@@ -85,5 +85,13 @@ func main() {
 		json.Unmarshal(body, &data)
 		c.AsciiJSON(200, data)
 	})
+	r.GET("/recommend", func(c *gin.Context) {
+		//var data serials
+		genre := c.Query("genre")
+		if len(genre) > 2 {
+			body := hubroutes.GetDetailedRecommendation(genre)
+			c.AsciiJSON(200, body)
+		}
+	})
 	r.Run()
 }

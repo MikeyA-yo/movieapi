@@ -26,10 +26,13 @@ var Num = rand.Intn(100)
 
 // Function to identify a series based on it's name, returns an array of bytes, takes a url and name as parameters
 func GetSeries(url, name string) []byte {
+	var errR []byte
 	combineUrl := fmt.Sprintf("%v&t=%v&type=series", url, name)
 	res, err := http.Get(combineUrl)
 	if err != nil {
 		fmt.Print("Error\n")
+		fmt.Println(err.Error())
+		return errR
 	}
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
@@ -152,10 +155,10 @@ var WordsArray = Words()
  Implementation Details:
   use a random number to get an indiviual word from the slice
 */
-
+//https://wordgenerator-api.herokuapp.com/api/v1/resources/words?lang=EN&amount=5
 // function For a random word 178186
 func GetWord() string {
-	var WordNum = rand.Intn(178186)
+	var WordNum = rand.Intn(len(WordsArray))
 	result := WordsArray
 	return result[WordNum]
 }
@@ -205,46 +208,122 @@ type genreLike struct {
 	Genre string `json:"Genre"`
 }
 
+func ContainsSlice(a, b []string) bool {
+	for _, v := range b {
+		if !slices.Contains(a, v) {
+			return false
+		}
+	}
+	return true
+}
+
+type serialP struct {
+	Title    string `json:"Title"`
+	Year     string `json:"Year"`
+	Rated    string `json:"Rated"`
+	Released string `json:"Released"`
+	Runtime  string `json:"Runtime"`
+	Genre    string `json:"Genre"`
+	Director string `json:"Director"`
+	Writer   string `json:"Writer"`
+	Actors   string `json:"Actors"`
+	Plot     string `json:"Plot"`
+	Language string `json:"Language"`
+	Country  string `json:"Country"`
+	Awards   string `json:"Awards"`
+	Poster   string `json:"Poster"`
+	Ratings  []struct {
+		Source string `json:"Source"`
+		Value  string `json:"Value"`
+	} `json:"Ratings"`
+	Metascore    string `json:"Metascore"`
+	ImdbRating   string `json:"imdbRating"`
+	ImdbVotes    string `json:"imdbVotes"`
+	ImdbID       string `json:"imdbID"`
+	Type         string `json:"Type"`
+	TotalSeasons string `json:"totalSeasons"`
+	Response     string `json:"Response"`
+}
+
 // function to find and keep genres
-func GetDetailedRecommendation(genre string) []byte {
-	URL := "https://movieapihub.zeabur.app/"
+func GetDetailedRecommendation(genre string) serialP {
+	var jsonData serialP
+	URL := "http://localhost:8080/"
 	lists := GetTitle()
 	length := len(lists)
-	var data []byte
+	genreLower := strings.ToLower(genre)
+
 	for i := 0; i < length; i++ {
 		name := fmt.Sprintf("%v", lists[i].Title)
+		fmt.Println(lists)
 		var genreData genreLike
 		if lists[i].Type == "movie" {
-			urlContent := fmt.Sprintf("%v/movie/%v", URL, name)
+			urlContent := fmt.Sprintf("%vmovies/%v", URL, name)
 			res, e := http.Get(urlContent)
 			if e != nil {
 				fmt.Println(e)
 			}
 			defer res.Body.Close()
 			body, _ := io.ReadAll(res.Body)
-			data = body
 			json.Unmarshal(body, &genreData)
-			genreSlice := strings.Split(genreData.Genre, ", ")
-			if slices.Contains(genreSlice, genre) {
-				return body
+
+			genreSlice := strings.Split(strings.ToLower(genreData.Genre), ", ")
+			if strings.Contains(genreLower, ",") {
+
+				genLowSlice := strings.Split(genreLower, ",")
+				fmt.Println(genreSlice, genLowSlice)
+				if ContainsSlice(genreSlice, genLowSlice) {
+					json.Unmarshal(body, &jsonData)
+					break
+				} else {
+					continue
+				}
+			} else if slices.Contains(genreSlice, genreLower) {
+				json.Unmarshal(body, &jsonData)
+				break
+			} else {
+				res, err := http.Get("http://localhost:8080/series/frieren")
+				if err != nil {
+					fmt.Println(err)
+				}
+				defer res.Body.Close()
+				body, _ := io.ReadAll(res.Body)
+				json.Unmarshal(body, &jsonData)
 			}
 		} else {
-			urlContent := fmt.Sprintf("%v/series/%v", URL, name)
+			urlContent := fmt.Sprintf("%vseries/%v", URL, name)
 			res, e := http.Get(urlContent)
 			if e != nil {
 				fmt.Println(e)
 			}
 			defer res.Body.Close()
 			body, _ := io.ReadAll(res.Body)
-			data = body
 			json.Unmarshal(body, &genreData)
 			genreSlice := strings.Split(genreData.Genre, ", ")
-			if slices.Contains(genreSlice, genre) {
-				return body
+			if strings.Contains(genreLower, ",") {
+
+				genLowSlice := strings.Split(genreLower, ",")
+				if ContainsSlice(genreSlice, genLowSlice) {
+					json.Unmarshal(body, &jsonData)
+
+					break
+				}
+			} else if slices.Contains(genreSlice, genreLower) {
+				json.Unmarshal(body, &jsonData)
+
+				break
+			} else {
+				res, err := http.Get("http://localhost:8080/series/frieren")
+				if err != nil {
+					fmt.Println(err)
+				}
+				defer res.Body.Close()
+				body, _ := io.ReadAll(res.Body)
+				json.Unmarshal(body, &jsonData)
 			}
 		}
 	}
-	return data
+	return jsonData
 }
 
 // Fuction to get random character
