@@ -271,12 +271,17 @@ func GetDetailedRecommendation(genre string) serialP {
 			if strings.Contains(genreLower, ",") {
 
 				genLowSlice := strings.Split(genreLower, ",")
-				fmt.Println(genreSlice, genLowSlice)
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					continue
+					res, err := http.Get("http://localhost:8080/series/frieren")
+					if err != nil {
+						fmt.Println(err)
+					}
+					defer res.Body.Close()
+					body, _ := io.ReadAll(res.Body)
+					json.Unmarshal(body, &jsonData)
 				}
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
@@ -301,16 +306,21 @@ func GetDetailedRecommendation(genre string) serialP {
 			json.Unmarshal(body, &genreData)
 			genreSlice := strings.Split(genreData.Genre, ", ")
 			if strings.Contains(genreLower, ",") {
-
 				genLowSlice := strings.Split(genreLower, ",")
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
-
 					break
+				} else {
+					res, err := http.Get("http://localhost:8080/series/frieren")
+					if err != nil {
+						fmt.Println(err)
+					}
+					defer res.Body.Close()
+					body, _ := io.ReadAll(res.Body)
+					json.Unmarshal(body, &jsonData)
 				}
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
-
 				break
 			} else {
 				res, err := http.Get("http://localhost:8080/series/frieren")
