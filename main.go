@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"os"
 
+	_ "github.com/MikeyA-yo/movieapi/docs"
 	"github.com/MikeyA-yo/movieapi/hubroutes"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	files "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type serials struct {
@@ -50,6 +53,21 @@ type serial struct {
 	Response     string `json:"Response"`
 }
 
+// @title MovieAPI
+// @version 1.0
+// @description This is a sample server.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
+// @BasePath /
+
 func main() {
 	//Add API key to URL from .env
 	godotenv.Load(".env")
@@ -60,6 +78,10 @@ func main() {
 
 	// Load HTML templates from the templates directory
 	r.LoadHTMLGlob("templates/*")
+
+	// Swagger setup
+	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(files.Handler, url))
 
 	r.GET("/", func(c *gin.Context) {
 		// Render the HTML template
