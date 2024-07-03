@@ -248,7 +248,7 @@ type serialP struct {
 // function to find and keep genres
 func GetDetailedRecommendation(genre string) serialP {
 	var jsonData serialP
-	URL := "http://localhost:8080/"
+	URL := "https://movieapihub.zeabur.app/"
 	lists := GetTitle()
 	length := len(lists)
 	genreLower := strings.ToLower(genre)
@@ -275,7 +275,7 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("http://localhost:8080/series/frieren")
+					res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
 					if err != nil {
 						fmt.Println(err)
 					}
@@ -287,7 +287,7 @@ func GetDetailedRecommendation(genre string) serialP {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("http://localhost:8080/series/frieren")
+				res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
 				if err != nil {
 					fmt.Println(err)
 				}
@@ -311,7 +311,7 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("http://localhost:8080/series/frieren")
+					res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
 					if err != nil {
 						fmt.Println(err)
 					}
@@ -323,7 +323,7 @@ func GetDetailedRecommendation(genre string) serialP {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("http://localhost:8080/series/frieren")
+				res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
 				if err != nil {
 					fmt.Println(err)
 				}
