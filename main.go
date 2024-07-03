@@ -77,7 +77,7 @@ func main() {
 	r := gin.Default()
 
 	// Load HTML templates from the templates directory
-	r.LoadHTMLGlob("./templates/*")
+	r.LoadHTMLGlob("./templates/index.html")
 
 	// Swagger setup
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
