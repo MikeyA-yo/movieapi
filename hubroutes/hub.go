@@ -120,6 +120,9 @@ func GetSearchRand(url, name string) []byte {
 	}
 	maxPageNumber := math.Round(float64(count / 10))
 	num := rand.Intn(int(maxPageNumber)) + 1
+	if num > 100 {
+		num = 100
+	}
 	combineUrl := fmt.Sprintf("%v&s=%v&page=%v", url, name, num)
 	res, err := http.Get(combineUrl)
 	if err != nil {
