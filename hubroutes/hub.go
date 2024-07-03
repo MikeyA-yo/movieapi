@@ -178,7 +178,7 @@ type searchResult struct {
 func GetTitle() []searchResult {
 	var title serials
 	randomWord := GetWord()
-	URL := fmt.Sprintf("https://movieapihub.zeabur.app/search/%v", randomWord)
+	URL := fmt.Sprintf("https://movieapi-gcve.onrender.com/search/%v", randomWord)
 	res, err := http.Get(URL)
 	if err != nil {
 		fmt.Print("Error\n")
@@ -248,7 +248,7 @@ type serialP struct {
 // function to find and keep genres
 func GetDetailedRecommendation(genre string) serialP {
 	var jsonData serialP
-	URL := "https://movieapihub.zeabur.app/"
+	URL := "https://movieapi-gcve.onrender.com/"
 	lists := GetTitle()
 	length := len(lists)
 	genreLower := strings.ToLower(genre)
@@ -275,7 +275,7 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
+					res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 					if err != nil {
 						fmt.Println(err)
 					}
@@ -287,7 +287,7 @@ func GetDetailedRecommendation(genre string) serialP {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
+				res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 				if err != nil {
 					fmt.Println(err)
 				}
@@ -311,7 +311,7 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
+					res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 					if err != nil {
 						fmt.Println(err)
 					}
@@ -323,7 +323,7 @@ func GetDetailedRecommendation(genre string) serialP {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("https://movieapihub.zeabur.app/series/frieren")
+				res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 				if err != nil {
 					fmt.Println(err)
 				}
