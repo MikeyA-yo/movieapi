@@ -84,8 +84,15 @@ func main() {
 
 	//Start the server other method's to come
 	r := gin.Default()
+
+	// Load HTML templates from the templates directory
+	r.LoadHTMLGlob("templates/*")
+
 	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Welcome")
+		// Render the HTML template
+		c.HTML(200, "index.html", gin.H{
+			"title": "Welcome Page",
+		})
 	})
 	r.GET("/series/:name", func(c *gin.Context) {
 		var data *serial
