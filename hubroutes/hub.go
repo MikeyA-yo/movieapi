@@ -208,6 +208,74 @@ type genreLike struct {
 	Genre string `json:"Genre"`
 }
 
+// huge slice of movies and genre for fallback cases (todo)
+var breakingBad genreLike = genreLike{
+	Title: "Breaking Bad",
+	Genre: "Crime, Drama, Thriller",
+}
+
+var gameOfThrones genreLike = genreLike{
+	Title: "Game of Thrones",
+	Genre: "Action, Adventure, Drama",
+}
+var chernobyl genreLike = genreLike{
+	Title: "Chernobyl",
+	Genre: "Drama, History, Thriller",
+}
+
+var frieren genreLike = genreLike{
+	Title: "Frieren: Beyond Journey's End",
+	Genre: "Animation, Adventure, Drama",
+}
+
+var gintama genreLike = genreLike{
+	Title: "Gintama",
+	Genre: "Animation, Action, Comedy",
+}
+
+var attackOnTitan genreLike = genreLike{
+	Title: "Attack on Titan",
+	Genre: "Animation, Action, Adventure",
+}
+
+var hxh genreLike = genreLike{
+	Title: "Hunter x Hunter",
+	Genre: "Animation, Action, Adventure",
+}
+
+var demonSlayer genreLike = genreLike{
+	Title: "Demon Slayer: Kimetsu no Yaiba",
+	Genre: "Animation, Action, Adventure",
+}
+
+var rickNMorty genreLike = genreLike{
+	Title: "Rick and Morty",
+	Genre: "Animation, Adventure, Comedy",
+}
+
+var theOffice genreLike = genreLike{
+	Title: "The Office",
+	Genre: "Comedy",
+}
+
+var theWalkingDead genreLike = genreLike{
+	Title: "The Walking Dead",
+	Genre: "Drama, Horror, Thriller",
+}
+
+var theLastOfUs genreLike = genreLike{
+	Title: "The Last of Us",
+	Genre: "Action, Adventure, Drama",
+}
+
+var recommendations = []genreLike{breakingBad, gameOfThrones, gintama, frieren, chernobyl, attackOnTitan, hxh, theLastOfUs, theOffice, theWalkingDead, demonSlayer, rickNMorty}
+
+func GetRandomRec() genreLike {
+	n := rand.Intn(len(recommendations))
+	return recommendations[n]
+}
+
+// function to check if a slice is in a slice
 func ContainsSlice(a, b []string) bool {
 	for _, v := range b {
 		if !slices.Contains(a, v) {
@@ -252,7 +320,6 @@ func GetDetailedRecommendation(genre string) serialP {
 	lists := GetTitle()
 	length := len(lists)
 	genreLower := strings.ToLower(genre)
-
 	for i := 0; i < length; i++ {
 		name := fmt.Sprintf("%v", lists[i].Title)
 		fmt.Println(lists)
