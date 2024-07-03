@@ -55,7 +55,7 @@ type serial struct {
 
 // @title MovieAPI
 // @version 1.0
-// @description This is a sample server.
+// @description A MovieAPI sever to serve random movies.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support
@@ -89,6 +89,7 @@ func main() {
 			"title": "Welcome Page",
 		})
 	})
+
 	r.GET("/series/:name", func(c *gin.Context) {
 		var data *serial
 		name := c.Param("name")
