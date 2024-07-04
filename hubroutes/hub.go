@@ -271,12 +271,145 @@ var theLastOfUs genreLike = genreLike{
 	Genre: "Action, Adventure, Drama",
 }
 
-var recommendations = []genreLike{breakingBad, gameOfThrones, gintama, frieren, chernobyl, attackOnTitan, hxh, theLastOfUs, theOffice, theWalkingDead, demonSlayer, rickNMorty}
-
-func GetRandomRec() genreLike {
-	n := rand.Intn(len(recommendations))
-	return recommendations[n]
+var theUmbrellaAcademy genreLike = genreLike{
+	Title: "The Umbrella Academy",
+	Genre: "Action, Adventure, Comedy",
 }
+
+var supacell genreLike = genreLike{
+	Title: "Supacell",
+	Genre: "Action, Adventure, Drama",
+}
+
+var blackButler genreLike = genreLike{
+	Title: "Black Butler",
+	Genre: "Animation, Action, Comedy",
+}
+
+var blackish genreLike = genreLike{
+	Title: "Black-ish",
+	Genre: "Comedy",
+}
+
+var mixedish genreLike = genreLike{
+	Title: "Mixed-ish",
+	Genre: "Comedy, Family",
+}
+
+var grownish genreLike = genreLike{
+	Title: "Grown-ish",
+	Genre: "Comedy, Drama",
+}
+
+var theWitcher genreLike = genreLike{
+	Title: "The Witcher",
+	Genre: "Action, Adventure, Drama",
+}
+
+var dragonBallZ genreLike = genreLike{
+	Title: "Dragon Ball Z",
+	Genre: "Animation, Action, Adventure",
+}
+
+var dragonBallSuper genreLike = genreLike{
+	Title: "Dragon Ball Super",
+	Genre: "Animation, Action, Adventure",
+}
+
+var naruto genreLike = genreLike{
+	Title: "Naruto",
+	Genre: "Animation, Action, Adventure",
+}
+
+var bleach genreLike = genreLike{
+	Title: "Bleach",
+	Genre: "Animation, Action, Adventure",
+}
+
+var onePiece genreLike = genreLike{
+	Title: "One Piece",
+	Genre: "Animation, Action, Adventure",
+}
+var recommendations = []genreLike{
+	onePiece,
+	bleach,
+	naruto,
+	dragonBallSuper,
+	dragonBallZ,
+	theWitcher,
+	grownish,
+	mixedish,
+	breakingBad,
+	gameOfThrones,
+	gintama,
+	frieren,
+	chernobyl,
+	attackOnTitan,
+	hxh,
+	theLastOfUs,
+	theOffice,
+	theWalkingDead,
+	demonSlayer,
+	rickNMorty,
+	theUmbrellaAcademy,
+	supacell,
+	blackButler,
+	blackish}
+
+func fallBack(genre string) serialP {
+	var searchResult serials
+	var jsonData serialP
+	n := rand.Intn(len(recommendations))
+	var movieName string
+	movieGenres := strings.Split(strings.ToLower(recommendations[n].Genre), ", ")
+	if strings.Contains(genre, ",") {
+		if ContainsSlice(movieGenres, strings.Split(genre, ",")) {
+			movieName = recommendations[n].Title
+		} else {
+			return fallBack(genre)
+		}
+	} else {
+		if slices.Contains(movieGenres, strings.ToLower(genre)) {
+			movieName = recommendations[n].Title
+		} else {
+			return fallBack(genre)
+		}
+
+	}
+	fetchUrl := fmt.Sprintf("https://movieapi-gcve.onrender.com/search/%v", movieName)
+	res, err := http.Get(fetchUrl)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	json.Unmarshal(body, &searchResult)
+	if searchResult.Search[0].Type == "movie" {
+		fetchUrl := fmt.Sprintf("https://movieapi-gcve.onrender.com/movies/%v", movieName)
+		res, err := http.Get(fetchUrl)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer res.Body.Close()
+		body, _ := io.ReadAll(res.Body)
+		json.Unmarshal(body, &jsonData)
+	} else if searchResult.Search[0].Type == "series" {
+		fetchUrl := fmt.Sprintf("https://movieapi-gcve.onrender.com/series/%v", movieName)
+		res, err := http.Get(fetchUrl)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer res.Body.Close()
+		body, _ := io.ReadAll(res.Body)
+		json.Unmarshal(body, &jsonData)
+	}
+	return jsonData
+}
+
+// func GetRandomRec() genreLike {
+// 	n := rand.Intn(len(recommendations))
+// 	return recommendations[n]
+// }
 
 // function to check if a slice is in a slice
 func ContainsSlice(a, b []string) bool {
@@ -345,25 +478,27 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-					if err != nil {
-						fmt.Println(err)
-					}
-					defer res.Body.Close()
-					body, _ := io.ReadAll(res.Body)
-					json.Unmarshal(body, &jsonData)
+					jsonData = fallBack(genre)
+					// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+					// if err != nil {
+					// 	fmt.Println(err)
+					// }
+					// defer res.Body.Close()
+					// body, _ := io.ReadAll(res.Body)
+					// json.Unmarshal(body, &jsonData)
 				}
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-				if err != nil {
-					fmt.Println(err)
-				}
-				defer res.Body.Close()
-				body, _ := io.ReadAll(res.Body)
-				json.Unmarshal(body, &jsonData)
+				jsonData = fallBack(genre)
+				// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+				// if err != nil {
+				// 	fmt.Println(err)
+				// }
+				// defer res.Body.Close()
+				// body, _ := io.ReadAll(res.Body)
+				// json.Unmarshal(body, &jsonData)
 			}
 		} else {
 			urlContent := fmt.Sprintf("%vseries/%v", URL, name)
@@ -381,25 +516,27 @@ func GetDetailedRecommendation(genre string) serialP {
 					json.Unmarshal(body, &jsonData)
 					break
 				} else {
-					res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-					if err != nil {
-						fmt.Println(err)
-					}
-					defer res.Body.Close()
-					body, _ := io.ReadAll(res.Body)
-					json.Unmarshal(body, &jsonData)
+					jsonData = fallBack(genre)
+					// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+					// if err != nil {
+					// 	fmt.Println(err)
+					// }
+					// defer res.Body.Close()
+					// body, _ := io.ReadAll(res.Body)
+					// json.Unmarshal(body, &jsonData)
 				}
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
-				res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-				if err != nil {
-					fmt.Println(err)
-				}
-				defer res.Body.Close()
-				body, _ := io.ReadAll(res.Body)
-				json.Unmarshal(body, &jsonData)
+				jsonData = fallBack(genre)
+				// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+				// if err != nil {
+				// 	fmt.Println(err)
+				// }
+				// defer res.Body.Close()
+				// body, _ := io.ReadAll(res.Body)
+				// json.Unmarshal(body, &jsonData)
 			}
 		}
 	}
