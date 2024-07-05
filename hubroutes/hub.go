@@ -515,12 +515,18 @@ func GetDetailedRecommendation(genre string) serialP {
 					break
 				} else {
 					jsonData = fallBack(genre)
+					if jsonData.Response == "True" {
+						break
+					}
 				}
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
 				break
 			} else {
 				jsonData = fallBack(genre)
+				if jsonData.Response == "True" {
+					break
+				}
 			}
 		} else {
 			urlContent := fmt.Sprintf("%vseries/%v", URL, name)
@@ -539,6 +545,9 @@ func GetDetailedRecommendation(genre string) serialP {
 					break
 				} else {
 					jsonData = fallBack(genre)
+					if jsonData.Response == "True" {
+						break
+					}
 					// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 					// if err != nil {
 					// 	fmt.Println(err)
@@ -552,6 +561,9 @@ func GetDetailedRecommendation(genre string) serialP {
 				break
 			} else {
 				jsonData = fallBack(genre)
+				if jsonData.Response == "True" {
+					break
+				}
 				// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
 				// if err != nil {
 				// 	fmt.Println(err)
