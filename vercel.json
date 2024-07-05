@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "./main.go",
+        "use": "@vercel/go",
+        "config": {
+          "goos": "linux",
+          "goarch": "amd64"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/**",
+        "dest": "main"
+      }
+    ]
+  }
