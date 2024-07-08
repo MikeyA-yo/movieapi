@@ -1053,21 +1053,23 @@ func GetDetailedRecommendation(genre string) serialP {
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
 					break
-				} else {
-					jsonData = fallBack(genre)
-					if jsonData.Response == "True" {
-						break
-					}
 				}
+				//  else {
+				// 	// jsonData = fallBack(genre)
+				// 	// if jsonData.Response == "True" {
+				// 	// 	break
+				// 	// }
+				// }
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
 				break
-			} else {
-				jsonData = fallBack(genre)
-				if jsonData.Response == "True" {
-					break
-				}
 			}
+			// else {
+			// 	// jsonData = fallBack(genre)
+			// 	// if jsonData.Response == "True" {
+			// 	// 	break
+			// 	// }
+			// }
 		} else {
 			urlContent := fmt.Sprintf("%vseries/%v", URL, name)
 			res, e := http.Get(urlContent)
@@ -1083,36 +1085,41 @@ func GetDetailedRecommendation(genre string) serialP {
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
 					break
-				} else {
-					jsonData = fallBack(genre)
-					if jsonData.Response == "True" {
-						break
-					}
-					// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-					// if err != nil {
-					// 	fmt.Println(err)
-					// }
-					// defer res.Body.Close()
-					// body, _ := io.ReadAll(res.Body)
-					// json.Unmarshal(body, &jsonData)
 				}
+				// else {
+				// 	// jsonData = fallBack(genre)
+				// 	// if jsonData.Response == "True" {
+				// 	// 	break
+				// 	// }
+				// 	// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+				// 	// if err != nil {
+				// 	// 	fmt.Println(err)
+				// 	// }
+				// 	// defer res.Body.Close()
+				// 	// body, _ := io.ReadAll(res.Body)
+				// 	// json.Unmarshal(body, &jsonData)
+				// }
 			} else if slices.Contains(genreSlice, genreLower) {
 				json.Unmarshal(body, &jsonData)
 				break
-			} else {
-				jsonData = fallBack(genre)
-				if jsonData.Response == "True" {
-					break
-				}
-				// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
-				// if err != nil {
-				// 	fmt.Println(err)
-				// }
-				// defer res.Body.Close()
-				// body, _ := io.ReadAll(res.Body)
-				// json.Unmarshal(body, &jsonData)
 			}
+			// else {
+			// 	// jsonData = fallBack(genre)
+			// 	// if jsonData.Response == "True" {
+			// 	// 	break
+			// 	// }
+			// 	// res, err := http.Get("https://movieapi-gcve.onrender.com/series/frieren")
+			// 	// if err != nil {
+			// 	// 	fmt.Println(err)
+			// 	// }
+			// 	// defer res.Body.Close()
+			// 	// body, _ := io.ReadAll(res.Body)
+			// 	// json.Unmarshal(body, &jsonData)
+			// }
 		}
+	}
+	if jsonData.Title == "" {
+		jsonData = fallBack(genre)
 	}
 	return jsonData
 }
