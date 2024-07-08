@@ -7,9 +7,12 @@ import (
 	"math"
 	"math/rand"
 	"net/http"
+	"os"
 	"slices"
 	"strconv"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 var Num = rand.Intn(100)
@@ -134,21 +137,32 @@ func GetSearchRand(url, name string) []byte {
 }
 
 /*
- Implementation Details:
- Get large list's of word's basically from an api and return it as a slice of strings
+Implementation Details:
+Get large list's of word's basically from an api and return it as a slice of strings
 */
+type wordnik struct {
+	Word string `json:"word"`
+	Id   string `json:"id"`
+}
 
+// https://random-word-api.herokuapp.com/all"
 // function to simplify process
 func Words() []string {
-	result := []string{}
-	res, err := http.Get("https://random-word-api.herokuapp.com/all")
+	godotenv.Load(".env")
+	result := []wordnik{}
+	url := fmt.Sprintf("https://api.wordnik.com/v4/words.json/randomWords?api_key=%v", os.Getenv("WORDNIK"))
+	res, err := http.Get(url)
 	if err != nil {
 		fmt.Print("Error\n")
 	}
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 	json.Unmarshal(body, &result)
-	return result
+	words := []string{}
+	for _, v := range result {
+		words = append(words, v.Word)
+	}
+	return words
 }
 
 // store all the words in this variable
