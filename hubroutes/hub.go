@@ -360,7 +360,528 @@ var raisingDion genreLike = genreLike{
 	Title: "Raising Dion",
 	Genre: "Drama, Sci-Fi",
 }
+
+var community genreLike = genreLike{
+	Title: "Community",
+	Genre: "Comedy",
+}
+
+var hannibal genreLike = genreLike{
+	Title: "Hannibal",
+	Genre: "Crime, Drama, Horror",
+}
+
+var homeland = genreLike{
+	Title: "Homeland",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var topChef = genreLike{
+	Title: "Top Chef",
+	Genre: "Game-Show, Reality-TV",
+}
+
+var theGoodFight = genreLike{
+	Title: "The Good Fight",
+	Genre: "Crime, Drama",
+}
+
+var blackMirror = genreLike{
+	Title: "Black Mirror",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var iMayDestroyYou = genreLike{
+	Title: "I May Destroy You",
+	Genre: "Drama",
+}
+
+var stElsewhere = genreLike{
+	Title: "St. Elsewhere",
+	Genre: "Comedy, Drama",
+}
+
+var daria = genreLike{
+	Title: "Daria",
+	Genre: "Animation, Comedy, Drama",
+}
+
+var theCosbyShow = genreLike{
+	Title: "The Cosby Show",
+	Genre: "Comedy, Family, Romance",
+}
+var misterRoger = genreLike{
+	Title: "Mister Rogers' Neighborhood",
+	Genre: "Family, Fantasy, Music",
+}
+
+var genHospital = genreLike{
+	Title: "General Hospital",
+	Genre: "Crime, Drama, Romance",
+}
+
+var happyDays = genreLike{
+	Title: "Happy Days",
+	Genre: "Comedy, Family, Music",
+}
+
+var girls = genreLike{
+	Title: "Girls",
+	Genre: "Comedy, Drama",
+}
+
+var columbo = genreLike{
+	Title: "Columbo",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var atlanta = genreLike{
+	Title: "Atlanta",
+	Genre: "Comedy, Drama, Music",
+}
+
+var strangerThings = genreLike{
+	Title: "Stranger Things",
+	Genre: "Drama, Fantasy, Horror",
+}
+
+var fleabag = genreLike{
+	Title: "Fleabag",
+	Genre: "Comedy, Drama",
+}
+
+var thirtySomething = genreLike{
+	Title: "Thirtysomething",
+	Genre: "Drama, Romance",
+}
+
+var scandal = genreLike{
+	Title: "Scandal",
+	Genre: "Drama, Thriller",
+}
+
+var theMuppetShow = genreLike{
+	Title: "The Muppet Show",
+	Genre: "Comedy, Family, Musical",
+}
+
+var dallas = genreLike{
+	Title: "Dallas",
+	Genre: "Drama, Romance",
+}
+
+var theFreshBel = genreLike{
+	Title: "The Fresh Prince of Bel-Air",
+	Genre: "Comedy",
+}
+
+var taxi = genreLike{
+	Title: "Taxi",
+	Genre: "Comedy",
+}
+
+var deadwood = genreLike{
+	Title: "Deadwood",
+	Genre: "Crime, Drama, History",
+}
+
+var nypdBlue = genreLike{
+	Title: "NYPD Blue",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var theWonderYears = genreLike{
+	Title: "The Wonder Years",
+	Genre: "Comedy, Drama, Family",
+}
+
+var livingSinlge = genreLike{
+	Title: "Living Single",
+	Genre: "Comedy",
+}
+
+var ojSimpsonStory = genreLike{
+	Title: "Inside Look: The People v. O.J. Simpson - American Crime Story",
+	Genre: "Documentary, Short",
+}
+
+var roseanne = genreLike{
+	Title: "Roseanne",
+	Genre: "Comedy, Drama",
+}
+
+var greysAnatomy = genreLike{
+	Title: "Grey's Anatomy",
+	Genre: "Drama, Romance",
+}
+
+var draggggin = genreLike{
+	Title: "RuPaul's Drag Race",
+	Genre: "Game-Show, Reality-TV",
+}
+
+var bobNewhart = genreLike{
+	Title: "The Bob Newhart Show",
+	Genre: "Comedy",
+}
+
+var freaksNGeeks = genreLike{
+	Title: "Freaks and Geeks",
+	Genre: "Comedy, Drama",
+}
+
+var jeffersons = genreLike{
+	Title: "The Jeffersons",
+	Genre: "Comedy",
+}
+
+var angelsInAmerica = genreLike{
+	Title: "Angels in America",
+	Genre: "Drama, Fantasy, Romance",
+}
+
+var theComeback = genreLike{
+	Title: "The Comeback",
+	Genre: "Comedy",
+}
+
+var orangeBlack = genreLike{
+	Title: "Orange Is the New Black",
+	Genre: "Comedy, Crime, Drama",
+}
+
+var inLivingColor = genreLike{
+	Title: "In Living Color",
+	Genre: "Comedy, Music",
+}
+
+var southPark = genreLike{
+	Title: "South Park",
+	Genre: "Animation, Comedy",
+}
+
+var theGoodPlace = genreLike{
+	Title: "The Good Place",
+	Genre: "Comedy, Drama, Fantasy",
+}
+
+var chap = genreLike{
+	Title: "Chappelle's Show",
+	Genre: "Comedy, Music",
+}
+
+var lawnorderSpecial = genreLike{
+	Title: "Law & Order: Special Victims Unit",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var bojack = genreLike{
+	Title: "BoJack",
+	Genre: "Animation, Comedy, Drama",
+}
+
+var gilmoreGirls = genreLike{
+	Title: "Gilmore Girls",
+	Genre: "Comedy, Drama",
+}
+
+var sixFeetUnder = genreLike{
+	Title: "Six Feet Under",
+	Genre: "Comedy, Drama",
+}
+
+var arrestedDev = genreLike{
+	Title: "Arrested Development",
+	Genre: "Comedy",
+}
+
+var soCalled = genreLike{
+	Title: "My So-Called Life",
+	Genre: "Comedy, Drama, Romance",
+}
+
+var watchmen = genreLike{
+	Title: "Watchmen",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var theShield = genreLike{
+	Title: "The Shield",
+	Genre: "Crime, Drama, Thriller",
+}
+
+var fridayNightLights = genreLike{
+	Title: "Friday Night Lights",
+	Genre: "Drama, Sport",
+}
+
+var theLeftOvers = genreLike{
+	Title: "The Leftovers",
+	Genre: "Drama, Fantasy, Mystery",
+}
+
+var starTrek = genreLike{
+	Title: "Star Trek: The Next Generation",
+	Genre: "Action, Adventure, Drama",
+}
+
+var theAmericans = genreLike{
+	Title: "The Americans",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var theRealWorld = genreLike{
+	Title: "The Real World",
+	Genre: "Drama, Reality-TV",
+}
+
+var buffy = genreLike{
+	Title: "Buffy the Vampire Slayer",
+	Genre: "Action, Adventure, Drama",
+}
+
+var theXFiles = genreLike{
+	Title: "The X-Files",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var enlightened = genreLike{
+	Title: "Enlightened",
+	Genre: "Comedy, Drama",
+}
+
+var curbEnthusiasm = genreLike{
+	Title: "Curb Your Enthusiasm",
+	Genre: "Comedy",
+}
+
+var ER = genreLike{
+	Title: "ER",
+	Genre: "Drama, Romance",
+}
+
+var lost = genreLike{
+	Title: "Lost",
+	Genre: "Adventure, Drama, Fantasy",
+}
+
+var survivor = genreLike{
+	Title: "Survivor",
+	Genre: "Adventure, Game-Show, Reality-TV",
+}
+
+var hillStreetBlues = genreLike{
+	Title: "Hill Street Blues",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var friends = genreLike{
+	Title: "Friends",
+	Genre: "Comedy, Romance",
+}
+
+var theCivilWar = genreLike{
+	Title: "The Civil War",
+	Genre: "Documentary, History, War",
+}
+
+var twinPeaks = genreLike{
+	Title: "Twin Peaks",
+	Genre: "Crime, Drama, Mystery",
+}
+
+var veep = genreLike{
+	Title: "Veep",
+	Genre: "Comedy",
+}
+
+var westWing = genreLike{
+	Title: "The West Wing",
+	Genre: "Drama",
+}
+
+var theCarolBunnShow = genreLike{
+	Title: "The Carol Burnett Show",
+	Genre: "Comedy, Family",
+}
+
+var thirtyRock = genreLike{
+	Title: "30 Rock",
+	Genre: "Comedy",
+}
+
+var sixtyMins = genreLike{
+	Title: "60 Minutes",
+	Genre: "News",
+}
+
+var theGoldenGirls = genreLike{
+	Title: "The Golden Girls",
+	Genre: "Comedy, Drama",
+}
+
+var theOphrahShow = genreLike{
+	Title: "The Oprah Winfrey Show",
+	Genre: "News, Talk-Show",
+}
+
+var allinfamily = genreLike{
+	Title: "All in the Family",
+	Genre: "Comedy, Drama",
+}
+
+var twZone = genreLike{
+	Title: "The Twilight Zone",
+	Genre: "Drama, Fantasy, Horror",
+}
+
+var succession = genreLike{
+	Title: "Succession",
+	Genre: "Comedy, Drama",
+}
+
+var sesameStreet = genreLike{
+	Title: "Sesame Street",
+	Genre: "Animation, Adventure, Family",
+}
+
+var cheers = genreLike{
+	Title: "Cheers",
+	Genre: "Comedy, Drama",
+}
+
+var roots = genreLike{
+	Title: "Roots",
+	Genre: "Biography, Drama, History",
+}
+
+var seinfield = genreLike{
+	Title: "Seinfeld",
+	Genre: "Comedy",
+}
+
+var theWire = genreLike{
+	Title: "The Wire",
+	Genre: "Crime, Drama, Thriller",
+}
+
+var sexNCity = genreLike{
+	Title: "Sex and the City",
+	Genre: "Comedy, Drama, Romance",
+}
+
+var theSimpsons = genreLike{
+	Title: "The Simpsons",
+	Genre: "Animation, Comedy",
+}
+
+var theSopranos = genreLike{
+	Title: "The Sopranos",
+	Genre: "Crime, Drama",
+}
+
+var madMen = genreLike{
+	Title: "Mad Men",
+	Genre: "Drama",
+}
+
+var iLoveLucy = genreLike{
+	Title: "I Love Lucy",
+	Genre: "Comedy",
+}
+
+var bluey = genreLike{
+	Title: "Bluey",
+	Genre: "Animation, Family",
+}
 var recommendations = []genreLike{
+	bluey,
+	iLoveLucy,
+	madMen,
+	theSopranos,
+	theSimpsons,
+	sexNCity,
+	theWire,
+	seinfield,
+	roots,
+	cheers,
+	sesameStreet,
+	succession,
+	twZone,
+	allinfamily,
+	theOphrahShow,
+	theGoldenGirls,
+	sixtyMins,
+	thirtyRock,
+	theCarolBunnShow,
+	westWing,
+	veep,
+	twinPeaks,
+	theCivilWar,
+	friends,
+	hillStreetBlues,
+	survivor,
+	lost,
+	ER,
+	curbEnthusiasm,
+	enlightened,
+	theXFiles,
+	buffy,
+	theRealWorld,
+	theAmericans,
+	starTrek,
+	theLeftOvers,
+	fridayNightLights,
+	theShield,
+	watchmen,
+	soCalled,
+	arrestedDev,
+	sixFeetUnder,
+	gilmoreGirls,
+	bojack,
+	lawnorderSpecial,
+	chap,
+	theGoodPlace,
+	southPark,
+	inLivingColor,
+	orangeBlack,
+	theComeback,
+	angelsInAmerica,
+	jeffersons,
+	freaksNGeeks,
+	bobNewhart,
+	draggggin,
+	greysAnatomy,
+	roseanne,
+	ojSimpsonStory,
+	livingSinlge,
+	theWonderYears,
+	nypdBlue,
+	deadwood,
+	taxi,
+	theFreshBel,
+	dallas,
+	theMuppetShow,
+	scandal,
+	thirtySomething,
+	fleabag,
+	strangerThings,
+	atlanta,
+	columbo,
+	girls,
+	happyDays,
+	genHospital,
+	misterRoger,
+	theCosbyShow,
+	daria,
+	stElsewhere,
+	iMayDestroyYou,
+	blackMirror,
+	theGoodFight,
+	topChef,
+	homeland,
+	hannibal,
+	community,
 	raisingDion,
 	youngSheldon,
 	loveNMon,
@@ -576,10 +1097,3 @@ func GetDetailedRecommendation(genre string) serialP {
 	}
 	return jsonData
 }
-
-// Fuction to get random character
-//
-//	func RandomCharacter() string {
-//		aZ := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
-//		return aZ[Num]
-//	}
