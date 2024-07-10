@@ -191,10 +191,9 @@ type searchResult struct {
 	Type  string `json:"Type"`
 }
 
-// actually get a title, and type to search based on GetWord() function
-func GetTitle() []searchResult {
+// some function abstracted out for a purpose associated with random word for recs
+func checkTitle(randomWord string) serials {
 	var title serials
-	randomWord := GetWord()
 	URL := fmt.Sprintf("https://movieapi-gcve.onrender.com/search/%v", randomWord)
 	res, err := http.Get(URL)
 	if err != nil {
@@ -203,8 +202,118 @@ func GetTitle() []searchResult {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 	json.Unmarshal(body, &title)
+	return title
+}
+
+// actually get a title, and type to search based on GetWord() function
+func GetTitle() []searchResult {
+	//This is random cause i need help and don't want to crash memory
+	titles := []string{
+		"Breaking",
+		"On Titan",
+		"Note",
+		"The Way",
+		"The Path",
+		"Last",
+		"Hero",
+		"Future",
+		"Love",
+		"War",
+		"Legend",
+		"Ghost",
+		"Shadow",
+		"Rise",
+		"Fall",
+		"Quest",
+		"Hunter",
+		"Attack",
+		"Return",
+		"Dark",
+		"Light",
+		"Dream",
+		"Soul",
+		"Dragon",
+		"Blade",
+		"Star",
+		"Moon",
+		"Sun",
+		"Wind",
+		"Fire",
+		"Water",
+		"Earth",
+		"Sky",
+		"Sea",
+		"Time",
+		"Space",
+		"Mind",
+		"Power",
+		"Reality",
+		"Infinity",
+		"End",
+		"Beginning",
+		"Destiny",
+		"Journey",
+		"Saga",
+		"Chronicles",
+		"Kingdom",
+		"Empire",
+		"Myth",
+		"Legacy",
+		"Battle",
+		"Voyage",
+		"Revenge",
+		"Mystery",
+		"Discovery",
+		"Wisdom",
+		"Eclipse",
+		"Phantom",
+		"Rebirth",
+		"Fortress",
+		"Guardian",
+		"Rebellion",
+		"Odyssey",
+		"Empire",
+		"Vengeance",
+		"Whisper",
+		"Secrets",
+		"Glory",
+		"Courage",
+		"Infinite",
+		"Survivor",
+		"Mirror",
+		"Echo",
+		"Wanderer",
+		"Crisis",
+		"Serenity",
+		"Awakening",
+		"Harmony",
+		"Radiance",
+		"Pulse",
+		"Genesis",
+		"Fusion",
+		"Blaze",
+		"Velocity",
+		"Nebula",
+		"Paradox",
+		"Unity",
+		"Clash",
+		"Epic",
+		"Voyager",
+		"Champion",
+		"Revival",
+		"Frontier",
+		"Exodus",
+		"Alliance",
+		"Conquest",
+		"Valor",
+	}
+	var title serials
+	randomNo := rand.Intn(len(titles)) + 1
+	randomWord := GetWord()
+	title = checkTitle(randomWord)
 	if title.Response == "False" {
-		return GetTitle()
+		randomWord = titles[randomNo]
+		title = checkTitle(randomWord)
 	}
 	arrLength := len(title.Search)
 	titlesRes := []searchResult{}
