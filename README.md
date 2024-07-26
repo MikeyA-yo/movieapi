@@ -13,6 +13,9 @@ visit the link here
 # Docs
 
 ### Routes:
+
+
+### /series
 `/series/*`
 Add the name of any series to the end of the route to get a JSON response
 Example: 
@@ -50,6 +53,8 @@ Example:
 
 If the series doesn't exist Response field will be False.
 
+
+### /movies
 `/movies/*`
 Add the name of any movie to the end of the route to get a JSON response
 Example: 
@@ -94,6 +99,8 @@ Example:
 ```
 If the movie doesn't exist Response field will be False.
 
+
+### /search
 `/search/*`
 You can pass in incomplete values of series and movies to the end of the route and get a JSON response showing a mix of both series and movies. 
 Example: (/search/the last):
@@ -172,10 +179,13 @@ Example: (/search/the last):
   ],
   "totalResults": "5554",
   "Response": "True"
-}```
+}
+```
 
 If you notice we have both movies and series mixed in, also an incomplete title passed `the last`
 
+
+### /recommend
 `/recommend`
 This route takes in a query param called genre. and then returns a random response with that genre included.
 For example with this `/recommend?genre=comedy` you get this JSON response 
