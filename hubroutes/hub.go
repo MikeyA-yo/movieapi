@@ -337,7 +337,7 @@ type genreLike struct {
 // huge slice of movies and genre for fallback cases (todo)
 //Here's an advice from here on out is a list of things, i potentially could have put in another file
 //but chose not too, so i don't actually explain the implementation of recommend route, with comments
-//so i there is no need to go beyond here if you won't understand the code, but ofc if you would love to
+//so there is no need to go beyond here if you won't understand the code, but ofc if you would love to
 //check what it entails feel free too
 
 var breakingBad genreLike = genreLike{
