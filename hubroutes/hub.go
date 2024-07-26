@@ -1156,9 +1156,15 @@ func GetDetailedRecommendation(genre string) serialP {
 			json.Unmarshal(body, &genreData)
 
 			genreSlice := strings.Split(strings.ToLower(genreData.Genre), ", ")
+
 			if strings.Contains(genreLower, ",") {
 
 				genLowSlice := strings.Split(genreLower, ",")
+				if len(genLowSlice) > 3 {
+					//
+					jsonData.Title = "Maximum Of 3 genres allowed"
+					break
+				}
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
 					break
@@ -1189,8 +1195,14 @@ func GetDetailedRecommendation(genre string) serialP {
 			body, _ := io.ReadAll(res.Body)
 			json.Unmarshal(body, &genreData)
 			genreSlice := strings.Split(genreData.Genre, ", ")
+
 			if strings.Contains(genreLower, ",") {
 				genLowSlice := strings.Split(genreLower, ",")
+				if len(genLowSlice) > 3 {
+					//
+					jsonData.Title = "Maximum Of 3 genres allowed"
+					break
+				}
 				if ContainsSlice(genreSlice, genLowSlice) {
 					json.Unmarshal(body, &jsonData)
 					break

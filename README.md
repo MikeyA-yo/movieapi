@@ -228,4 +228,4 @@ For example with this `/recommend?genre=comedy` you get this JSON response
   "Response": "True"
 }
 ```
-Note you can also pass in to 3 genres like this `/recommend?genre=action,animation`
+Note you can also pass in 2 to 3(maximum of 3) genres like this `/recommend?genre=action,animation`
