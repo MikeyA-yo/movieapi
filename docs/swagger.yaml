@@ -1,5 +1,5 @@
 basePath: /
-host: localhost:8080
+host: movieapi-gcve.onrender.com
 info:
   contact:
     email: support@swagger.io
